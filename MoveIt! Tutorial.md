@@ -690,7 +690,7 @@ visual_tools.publishTrajectoryLine(my_plan.trajectory_, joint_model_group);
 visual_tools.trigger();
 ```
 
-![1557734257255](../../INTERNSHIP%202019/MoveIt!%20Documentation/assets/1557734257255.png)
+![1557734257255](assets/1557734257255.png)
 
 
 
