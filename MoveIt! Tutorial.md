@@ -18,11 +18,45 @@ I'll be adapting it from the MoveIt! Tutorials: <https://ros-planning.github.io/
 
 
 
-## Table Of Contents
+## Table Of Contents <a name="top"></a>
+
+1. [Introduction](#1)    
+2. [Setup and Basic Concepts](#2)    
+   2.1 [Installing MoveIt!](#2.1)    
+   2.2 [Basic Concepts](#2.2)    
+   2.3 [MoveIt! In RViz](#2.3)    
+   2.4 [Launchfile Structure](#2.4)    
+   2.5 [Command Line Interface](#2.5)    
+3. [C++ Move Group Interface](#3)    
+   3.1 [Import Dependencies](#3.1)    
+   3.2 [Define Planning Groups](#3.2)    
+   3.3 [Obtain Basic Information](#3.3)    
+   3.4 [Setting Start State](#3.4)    
+   3.5 [Assign and Plan for End Effector Pose Goal](#3.5)    
+   3.6 [Move to Goal (Execute Plan)](#3.6)    
+   3.7 [Assign and Plan for Joint-Space Pose Goal](#3.7)    
+   3.8 [Assign and Plan for Cartesian Paths](#3.8)    
+   3.9 [Planning Constraints](#3.9)    
+   3.10 [Collision Objects](#3.10)    
+   3.11 [Setting Tolerances](#3.11)    
+   3.12 [Visualisation Tools](#3.12)    
+4. [Python Move Group Interface](#4)    
+   4.1 [Import Dependencies](#4.1)    
+   4.2 [Define Planning Groups](#4.2)    
+   4.3 [Obtain Basic Information](#4.3)    
+   4.4 [Setting Start State](#4.4)    
+   4.5 [Assign and Plan for End Effector Pose Goal](#4.5)    
+   4.6 [Move to Goal (Execute Plan)](#4.6)    
+   4.7 [Assign and Plan for Joint-Space Pose Goal](#4.7)    
+   4.8 [Assign and Plan for Cartesian Paths](#4.8)    
+   4.9 [Planning Constraints](#4.9)    
+   4.10 [Collision Objects](#4.10)    
+   4.11 [Visualisation Tools](#4.11)    
 
 
 
-## Introduction
+
+## 1. Introduction <a name="1"></a>
 
 The MoveIt! project is a ROS package that helps with motion planning for robotic manipulators. As such, it is especially useful for working with and planning for arms!
 
@@ -47,9 +81,11 @@ This tutorial will only cover the basics for MoveIt!, up to and including the mo
 
 
 
-## Setup and Basic Concepts
+## 2. Setup and Basic Concepts <a name="2"></a>
 
-### Installing MoveIt!
+### 2.1 Installing MoveIt! <a name="2.1"></a>
+[go to top](#top)
+
 
 ```shell
 $ sudo apt install ros-melodic-moveit
@@ -57,7 +93,9 @@ $ sudo apt install ros-melodic-moveit
 
 
 
-### Basic Concepts
+### 2.2 Basic Concepts <a name="2.2"></a>
+[go to top](#top)
+
 
 Source: <https://moveit.ros.org/documentation/concepts/>
 
@@ -136,7 +174,9 @@ I've covered a couple of basics, but there's a lot more to cover! Check out the 
 
 
 
-### MoveIt! In RViz
+### 2.3 MoveIt! In RViz <a name="2.3"></a>
+[go to top](#top)
+
 
 Source: <https://ros-planning.github.io/moveit_tutorials/doc/quickstart_in_rviz/quickstart_in_rviz_tutorial.html>
 
@@ -216,7 +256,9 @@ You can also enable the `Show Trail` checkbox in the `Planned Path` tab to show 
 
 
 
-### Launchfile Structure
+### 2.4 Launchfile Structure <a name="2.4"></a>
+[go to top](#top)
+
 
 ![MoveIt Launchfile Structure](assets/MoveIt_Launchfile_Structure.png)
 
@@ -242,7 +284,9 @@ It's fairly complicated because there are a whole bunch of nodes and configurati
 
 
 
-### Command Line Interface
+### 2.5 Command Line Interface <a name="2.5"></a>
+[go to top](#top)
+
 
 ```shell
 # Start the command line interface
@@ -279,7 +323,7 @@ $ execute
 
 
 
-## C++ Move Group Interface
+## 3. C++ Move Group Interface <a name="3"></a>
 
 Source: <https://ros-planning.github.io/moveit_tutorials/doc/move_group_interface/move_group_interface_tutorial.html>
 
@@ -289,7 +333,9 @@ Of course, all this planning is useless without some programmatic way to call it
 
 > MoveIt! operates on sets of joints called “planning groups” and stores them in an object called the JointModelGroup. Throughout MoveIt! the terms “planning group” and “joint model group” are used interchangably.
 
-### Import Dependencies
+### 3.1 Import Dependencies <a name="3.1"></a>
+[go to top](#top)
+
 
 ```c++
 #include <moveit/move_group_interface/move_group_interface.h>
@@ -306,7 +352,9 @@ Of course, all this planning is useless without some programmatic way to call it
 
 
 
-### Define Planning Groups
+### 3.2 Define Planning Groups <a name="3.2"></a>
+[go to top](#top)
+
 
 ```c++
 static const std::string PLANNING_GROUP = "panda_arm";
@@ -324,7 +372,9 @@ const robot_state::JointModelGroup* joint_model_group = move_group.getCurrentSta
 
 
 
-### Obtain Basic Information
+### 3.3 Obtain Basic Information <a name="3.3"></a>
+[go to top](#top)
+
 
 ```c++
 // Get robot reference frame
@@ -341,7 +391,9 @@ std::copy(move_group.getJointModelGroupNames().begin(), move_group.getJointModel
 
 
 
-### Setting Start State
+### 3.4 Setting Start State <a name="3.4"></a>
+[go to top](#top)
+
 
 ```c++
 // Create start state object
@@ -363,7 +415,9 @@ move_group.setStartState(start_state);
 
 
 
-### Assign and Plan for End Effector Pose Goal
+### 3.5 Assign and Plan for End Effector Pose Goal <a name="3.5"></a>
+[go to top](#top)
+
 
 ```c++
 // Create Goal Pose
@@ -390,7 +444,9 @@ ROS_INFO_NAMED("tutorial", "Visualizing plan (pose goal) %s", success ? "" : "FA
 
 
 
-### Move to Goal (Execute Plan)
+### 3.6 Move to Goal (Execute Plan) <a name="3.6"></a>
+[go to top](#top)
+
 
 ```c++
 move_group.move();
@@ -398,7 +454,9 @@ move_group.move();
 
 
 
-### Assign and Plan for Joint-Space Pose Goal
+### 3.7 Assign and Plan for Joint-Space Pose Goal <a name="3.7"></a>
+[go to top](#top)
+
 
 ```c++
 // Get current state object
@@ -423,7 +481,9 @@ ROS_INFO_NAMED("tutorial", "Visualizing plan (pose goal) %s", success ? "" : "FA
 
 
 
-### Assign and Plan for Cartesian Paths
+### 3.8 Assign and Plan for Cartesian Paths <a name="3.8"></a>
+[go to top](#top)
+
 
 Waypoint navigation!
 
@@ -465,7 +525,9 @@ ROS_INFO_NAMED("tutorial", "Visualizing plan (Cartesian path) (%.2f%% acheived)"
 
 
 
-### Planning Constraints
+### 3.9 Planning Constraints <a name="3.9"></a>
+[go to top](#top)
+
 
 This particular constraint limits the end-effector to a single orientation. So the arm has to hold that orientation all the way.
 
@@ -511,7 +573,9 @@ visual_tools.prompt("next step");
 
 
 
-### Collision Objects
+### 3.10 Collision Objects <a name="3.10"></a>
+[go to top](#top)
+
 
 ![1563791835579](assets/1563791835579.png)
 
@@ -574,7 +638,9 @@ planning_scene_interface.removeCollisionObjects(object_ids);
 
 
 
-### Setting Tolerances
+### 3.11 Setting Tolerances <a name="3.11"></a>
+[go to top](#top)
+
 
 > Note that this is for **planning not execution**!
 
@@ -589,7 +655,9 @@ move_group.setPlanningTime();
 
 
 
-### Visualisation Tools
+### 3.12 Visualisation Tools <a name="3.12"></a>
+[go to top](#top)
+
 
 RViz has a lot of cool programmatic visualisation tools you can use too!
 
@@ -626,13 +694,15 @@ visual_tools.trigger();
 
 
 
-## Python Move Group Interface
+## 4. Python Move Group Interface <a name="4"></a>
 
 Source: <https://ros-planning.github.io/moveit_tutorials/doc/move_group_python_interface/move_group_python_interface_tutorial.html>
 
 Code Source: <https://github.com/ros-planning/moveit_tutorials/blob/master/doc/move_group_python_interface/scripts/move_group_python_interface_tutorial.py>
 
-### Import Dependencies
+### 4.1 Import Dependencies <a name="4.1"></a>
+[go to top](#top)
+
 
 ```python
 import sys
@@ -649,7 +719,9 @@ from moveit_msgs.msg import RobotState, Constraints, OrientationConstraint
 
 
 
-### Define Planning Groups
+### 4.2 Define Planning Groups <a name="4.2"></a>
+[go to top](#top)
+
 
 ```python
 # Init node
@@ -671,7 +743,9 @@ move_group = moveit_commander.MoveGroupCommander(group_name)
 
 
 
-### Obtain Basic Information
+### 4.3 Obtain Basic Information <a name="4.3"></a>
+[go to top](#top)
+
 
 ```python
 # Get reference frame
@@ -689,7 +763,9 @@ robot.get_current_state()
 
 
 
-### Setting Start State
+### 4.4 Setting Start State <a name="4.4"></a>
+[go to top](#top)
+
 
 ```python
 # Create joint state object
@@ -709,7 +785,9 @@ move_group.set_start_state(moveit_robot_state)
 
 
 
-### Assign and Plan for End Effector Pose Goal
+### 4.5 Assign and Plan for End Effector Pose Goal <a name="4.5"></a>
+[go to top](#top)
+
 
 ```python
 # Create Goal Pose
@@ -734,7 +812,9 @@ move_group.clear_pose_targets()
 
 
 
-### Move to Goal (Execute Plan)
+### 4.6 Move to Goal (Execute Plan) <a name="4.6"></a>
+[go to top](#top)
+
 
 ```python
 # Execute a previously computed plan
@@ -750,7 +830,9 @@ move_group.stop()
 
 
 
-### Assign and Plan for Joint-Space Pose Goal
+### 4.7 Assign and Plan for Joint-Space Pose Goal <a name="4.7"></a>
+[go to top](#top)
+
 
 ```python
 # Get current joint values
@@ -771,7 +853,9 @@ plan = move_group.plan(joint_goal)
 
 
 
-### Assign and Plan for Cartesian Paths
+### 4.8 Assign and Plan for Cartesian Paths <a name="4.8"></a>
+[go to top](#top)
+
 
 Waypoint navigation!
 
@@ -804,7 +888,9 @@ waypoints.append(copy.deepcopy(wpose))
 
 
 
-### Planning Constraints
+### 4.9 Planning Constraints <a name="4.9"></a>
+[go to top](#top)
+
 
 This particular constraint limits the end-effector to a single orientation. So the arm has to hold that orientation all the way.
 
@@ -834,7 +920,9 @@ move_group.set_path_constraints(None)
 
 
 
-### Collision Objects
+### 4.10 Collision Objects <a name="4.10"></a>
+[go to top](#top)
+
 
 ![1563791835579](assets/1563791835579.png)
 
@@ -886,7 +974,9 @@ scene.remove_world_object(box_name)
 
 
 
-### Visualisation Tools
+### 4.11 Visualisation Tools <a name="4.11"></a>
+[go to top](#top)
+
 
 RViz has a lot of cool programmatic visualisation tools you can use too!
 
